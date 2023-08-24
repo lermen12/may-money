@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_money/src/modules/login/components/register_link.dart';
+import 'package:my_money/src/router/app_router.dart';
 import 'package:my_money/src/shared/colors/app_colors.dart';
 import 'package:my_money/src/shared/components/app_button.dart';
 import 'package:my_money/src/shared/components/app_loading.dart';
@@ -69,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             child: AppButton(action: () {}, label: "Login")),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {Navigator.pushNamed(context, AppRouter.register);},
                           child: const RegisterLink(),
                         )
                       ],
