@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
 
 mixin AppDio {
   static Future<Dio> getConnection({bool isAuth = false}) async {
@@ -15,8 +15,8 @@ mixin AppDio {
     }
 
     dio.options = BaseOptions();
-    dio.options.receiveTimeout = 30000 as Duration?;
-    dio.options.sendTimeout = 15000 as Duration?;
+    dio.options.receiveTimeout = 30000;
+    dio.options.sendTimeout = 15000;
     dio.options.headers = headers;
 
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =

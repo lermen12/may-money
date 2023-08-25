@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:my_money/src/modules/register/controller/register_controller.dart';
 import 'package:my_money/src/shared/colors/app_colors.dart';
 import 'package:my_money/src/shared/components/app_button.dart';
 import 'package:my_money/src/shared/components/app_logo_title.dart';
@@ -12,6 +13,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  RegisterController controller = RegisterController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordCheckController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     enabled: true,
                     textAlign: TextAlign.start,
                     autofocus: false,
+                    controller: nameController,
                     keyboardType: TextInputType.text,
                     decoration:
                         const InputDecoration(label: Text('Nome Completo')),
@@ -53,6 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     enabled: true,
                     textAlign: TextAlign.start,
                     autofocus: false,
+                    controller: emailController,
                     keyboardType: TextInputType.text,
                     validator: (value) => EmailValidator.validate(value!)
                         ? null
@@ -63,6 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     enabled: true,
                     textAlign: TextAlign.start,
                     autofocus: false,
+                    controller: passwordController,
                     keyboardType: TextInputType.text,
                     obscureText: true,
                     decoration: const InputDecoration(label: Text('Senha')),
@@ -71,6 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     enabled: true,
                     textAlign: TextAlign.start,
                     autofocus: false,
+                    controller: passwordCheckController,
                     keyboardType: TextInputType.text,
                     obscureText: true,
                     decoration:
@@ -78,7 +89,16 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: AppButton(action: () {}, label: 'Cadastrar'),
+                    child: AppButton(
+                        action: () async {
+                          await controller.checkData(
+                              nameController: nameController.text,
+                              emailController: emailController.text,
+                              passwordController: passwordController.text,
+                              passwordCheckController:
+                                  passwordCheckController.text);
+                        },
+                        label: 'Cadastrar'),
                   )
                 ],
               ),
