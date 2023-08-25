@@ -70,7 +70,9 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             child: AppButton(action: () {}, label: "Login")),
                         GestureDetector(
-                          onTap: () {Navigator.pushNamed(context, AppRouter.register);},
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRouter.register);
+                          },
                           child: const RegisterLink(),
                         )
                       ],

@@ -1,4 +1,3 @@
-
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:my_money/src/shared/colors/app_colors.dart';
@@ -10,7 +9,6 @@ class RegisterPage extends StatefulWidget {
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
-
 }
 
 class _RegisterPageState extends State<RegisterPage> {

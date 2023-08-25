@@ -28,44 +28,50 @@ class _PersonaRegisterPageState extends State<PersonaRegisterPage> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Center(
-            child: Padding(padding: const EdgeInsets.only(top: 50, left: 25, right: 25),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const AppLogoTitle(title: 'Meus Dados', titleSize: 20, iconSize: 80,),
-                TextFormField(
-                  enabled: true,
-                  textAlign: TextAlign.start,
-                  autofocus: false,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    label: Text('Nome Completo')
+            child: Padding(
+              padding: const EdgeInsets.only(top: 50, left: 25, right: 25),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const AppLogoTitle(
+                    title: 'Meus Dados',
+                    titleSize: 20,
+                    iconSize: 80,
                   ),
-                ),
-                TextFormField(
-                  enabled: true,
-                  textAlign: TextAlign.start,
-                  autofocus: false,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                      label: Text('E-mail')
+                  TextFormField(
+                    enabled: true,
+                    textAlign: TextAlign.start,
+                    autofocus: false,
+                    keyboardType: TextInputType.text,
+                    decoration:
+                        const InputDecoration(label: Text('Nome Completo')),
                   ),
-                ),
-                TextFormField(
-                  enabled: true,
-                  textAlign: TextAlign.start,
-                  autofocus: false,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                      label: Text('Limite de Gastos')
+                  TextFormField(
+                    enabled: true,
+                    textAlign: TextAlign.start,
+                    autofocus: false,
+                    keyboardType: TextInputType.text,
+                    decoration: const InputDecoration(label: Text('E-mail')),
                   ),
-                ),
-                Padding(padding: const EdgeInsets.only(top: 20),
-                child: AppButton(action: (){}, label: 'Enviar Dados',),),
-
-              ],
-            ),),
+                  TextFormField(
+                    enabled: true,
+                    textAlign: TextAlign.start,
+                    autofocus: false,
+                    keyboardType: TextInputType.number,
+                    decoration:
+                        const InputDecoration(label: Text('Limite de Gastos')),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: AppButton(
+                      action: () {},
+                      label: 'Enviar Dados',
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

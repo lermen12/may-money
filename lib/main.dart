@@ -16,10 +16,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'My Money',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        useMaterial3: true
-      ),
+      theme: ThemeData(primarySwatch: Colors.green, useMaterial3: true),
       home: const InitialPage(),
       routes: {
         AppRouter.login: (context) => const LoginPage(),
@@ -28,5 +25,3 @@ class App extends StatelessWidget {
     );
   }
 }
-
-
