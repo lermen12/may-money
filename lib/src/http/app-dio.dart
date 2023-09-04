@@ -2,16 +2,18 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:my_money/src/shared/storage/app_keys.dart';
+import 'package:my_money/src/shared/storage/app_secure_storage.dart';
 
 mixin AppDio {
   static Future<Dio> getConnection({bool isAuth = false}) async {
     final Dio dio = Dio();
+
     final Map<String, String> headers = <String, String>{};
 
-    String token = "";
-
     if (isAuth) {
-      headers["Authorizaton"] = "Bearer $token";
+      String? token = await AppSecureStorage.readItem(Appkeys.auth_token);
+      headers["Authorization"] = "Bearer $token";
     }
 
     dio.options = BaseOptions();
@@ -43,23 +45,21 @@ mixin AppDio {
   static void onRequest(RequestOptions options) {
     options.headers["Accept"] = 'application/json';
     options.headers["Content-Type"] = 'application/json';
-    print(
-        '---------------------------------- Request Log ----------------------------------');
+
+    print('--------------| Request log |--------------');
     print(options.uri);
   }
 
   static void onResponse(
       Response<dynamic> response, ResponseInterceptorHandler handler) {
-    print(
-        '---------------------------------- Response Log ----------------------------------');
+    print('--------------| Response log |--------------');
     print(response.data);
     handler.next(response);
   }
 
   static void onError(
       Dio dio, DioError error, ErrorInterceptorHandler handler) {
-    print(
-        '---------------------------------- Error Log ----------------------------------');
+    print('--------------| Error log |--------------');
     print(error.response);
     handler.next(error);
   }

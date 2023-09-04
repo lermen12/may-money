@@ -1,14 +1,15 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:my_money/src/shared/components/app_snackbar.dart';
+import '../services/login_service.dart';
 
 part 'login_controller.g.dart';
 
 class LoginController = _LoginController with _$LoginController;
 
 abstract class _LoginController with Store {
-  late String email;
-  late String password;
-  late BuildContext buildContext;
+  LoginService service = LoginService();
 
   @observable
   bool isLoading = false;
@@ -16,28 +17,78 @@ abstract class _LoginController with Store {
   @observable
   bool isSuccess = false;
 
+  late String email;
+  late String password;
+  late BuildContext buildContext;
+
   @action
-  Future<void> checkData(
-      {required String emailController,
-      required String passwordController,
-      required BuildContext buildContext}) async {
+  Future<void> checkData({
+    required String emailController,
+    required String passwordController,
+    required BuildContext buildContext,
+  }) async {
     this.buildContext = buildContext;
-    if(_validate(emailController: emailController, passwordController: passwordController)){
+    if (_validate(
+        emailController: emailController,
+        passwordControler: passwordController)) {
       email = emailController;
       password = passwordController;
-      isLoading = true;
+      setLoading();
       await sendData();
-      isLoading = false;
-    };
+    } else {
+      AppSnackbar.openMessage(
+        context: buildContext,
+        message: "Verifique os dados preenchidos",
+      );
+    }
   }
 
-  bool _validate({required String emailController,
-    required String passwordController}) {
-    return true;
+  bool _validate({
+    required String emailController,
+    required String passwordControler,
+  }) {
+    return EmailValidator.validate(emailController);
   }
 
   @action
   Future<void> sendData() async {
-    isSuccess = true;
+    Map result = await service.sendData(
+      username: email,
+      password: password,
+    );
+
+    result.containsKey('success')
+        ? setSucess()
+        : getException(result['exception']);
+  }
+
+  @action
+  void setSucess({bool? value}) => isSuccess = value ?? !isSuccess;
+
+  @action
+  void setLoading({bool? value}) => isLoading = value ?? !isLoading;
+
+  @action
+  void getException(int code) {
+    setLoading();
+    switch (code) {
+      case 401:
+        AppSnackbar.openMessage(
+          context: buildContext,
+          message: "Acesso não autorizado",
+        );
+        break;
+      case 400:
+        AppSnackbar.openMessage(
+          context: buildContext,
+          message: "Dados inválidos",
+        );
+        break;
+      default:
+        AppSnackbar.openMessage(
+          context: buildContext,
+          message: "Erro inesperado, tente mais tarde",
+        );
+    }
   }
 }

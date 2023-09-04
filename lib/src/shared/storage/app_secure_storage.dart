@@ -5,15 +5,15 @@ class AppSecureStorage {
 
   static final FlutterSecureStorage storage = const FlutterSecureStorage();
 
-  static Future<void> addItem(AppKeys key, String value) async{
+  static Future<void> addItem(Appkeys key, String value) async{
     await storage.write(key: key.toString(), value: value);
   }
 
-  static Future<void> deleteItem(AppKeys key) async{
+  static Future<void> deleteItem(Appkeys key) async{
     await storage.delete(key: key.toString());
   }
 
-  static Future<String?> readItem(AppKeys key) async{
+  static Future<String?> readItem(Appkeys key) async{
    return await storage.read(key: key.toString());
   }
 }
